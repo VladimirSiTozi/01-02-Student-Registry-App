@@ -34,10 +34,10 @@ jobs:
       run: npm run test | tee test-output.log
 
     - name: Upload test output as artifact
-      uses: actions/upload-artifacr@v4
+      uses: actions/upload-artifact@v4
       with:
-        name: test-result-${{ matrix.node-version}}
+        name: test-results
         path: test-output.log
-        
+
     # - name: Run integration tests
     #   run: npm run test
