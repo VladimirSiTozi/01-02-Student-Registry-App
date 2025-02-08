@@ -10,8 +10,28 @@ on:
     branches: [ "main" ]
 
 jobs:
+  security_tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clone the GitHub Repo on the machine
+      uses: actions/checkout@v4
+
+    - name: Use Node.js version 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Install program dependacies
+      run: npm install
+
+    - name: Run npm security tests 
+      run: npm audit
+
   build_test:
     runs-on: ubuntu-latest
+    needs: security_tests # if security_tests is successful
 
     # strategy:
     #   matrix:
@@ -41,22 +61,3 @@ jobs:
 
     # - name: Run integration tests
     #   run: npm run test
-
-  security_tests:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Clone the GitHub Repo on the machine
-      uses: actions/checkout@v4
-
-    - name: Use Node.js version 20
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-
-    - name: Install program dependacies
-      run: npm install
-
-    - name: Run npm security tests 
-      run: npm audit
