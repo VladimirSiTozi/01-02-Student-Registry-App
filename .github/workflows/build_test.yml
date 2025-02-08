@@ -44,7 +44,7 @@ jobs:
 
   security_tests:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Clone the GitHub Repo on the machine
       uses: actions/checkout@v4
@@ -58,5 +58,5 @@ jobs:
     - name: Install program dependacies
       run: npm install
 
-    - name: Run integration tests 
+    - name: Run npm security tests 
       run: npm audit
